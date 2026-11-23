@@ -1,0 +1,16 @@
+MLflow evidence after the verified rerun
+
+Experiment  Cellula House Prices
+
+Run                 Validation RMSE  Run ID
+------------------  ---------------  --------------------------------
+ridge                    210,003.61  eae9bce25b26450e90b62f401f42f843
+forest_deep              231,019.99  ac0e023f0079435db7dcb4bad0e2219a
+forest_shallow           251,070.61  4da4db7fe7cd420687acce4ae3a9179d
+median_baseline          424,655.45  76aada1cff3240858051caae714386f0
+
+Selected model URI  models:/m-fa7a8a21c29d426a9a208818a8b63840
+
+The running server returned all four completed runs and the winner’s evaluation artifacts.
+Each saved model was loaded back from MLflow and reproduced its validation metrics.
+The saved Ridge model reproduced all 684 held-out predictions exactly.

@@ -1,0 +1,131 @@
+{
+  "categorical_features": [
+    "city",
+    "zip_code"
+  ],
+  "clean_rows": 4551,
+  "exact_duplicates_removed": 0,
+  "invalid_prices_removed": 49,
+  "most_frequent_cities": {
+    "Auburn": 175,
+    "Bellevue": 281,
+    "Federal Way": 145,
+    "Issaquah": 186,
+    "Kent": 184,
+    "Kirkland": 187,
+    "Redmond": 235,
+    "Renton": 291,
+    "Sammamish": 171,
+    "Seattle": 1561
+  },
+  "numeric_features": [
+    "bedrooms",
+    "bathrooms",
+    "sqft_living",
+    "sqft_lot",
+    "floors",
+    "waterfront",
+    "view",
+    "condition",
+    "sqft_above",
+    "sqft_basement",
+    "yr_built",
+    "yr_renovated"
+  ],
+  "positive_price_summary_usd": {
+    "25%": 326264.2857145,
+    "5%": 210000.0,
+    "50%": 465000.0,
+    "75%": 657500.0,
+    "95%": 1187500.5,
+    "count": 4551.0,
+    "max": 26590000.0,
+    "mean": 557905.8991379443,
+    "min": 7800.0,
+    "std": 563929.871279188
+  },
+  "prepared_missing_values": {
+    "bathrooms": 0,
+    "bedrooms": 0,
+    "city": 0,
+    "condition": 0,
+    "floors": 0,
+    "sqft_above": 0,
+    "sqft_basement": 0,
+    "sqft_living": 0,
+    "sqft_lot": 0,
+    "view": 0,
+    "waterfront": 0,
+    "yr_built": 0,
+    "yr_renovated": 0,
+    "zip_code": 0
+  },
+  "raw_columns": [
+    "date",
+    "price",
+    "bedrooms",
+    "bathrooms",
+    "sqft_living",
+    "sqft_lot",
+    "floors",
+    "waterfront",
+    "view",
+    "condition",
+    "sqft_above",
+    "sqft_basement",
+    "yr_built",
+    "yr_renovated",
+    "street",
+    "city",
+    "statezip",
+    "country"
+  ],
+  "raw_missing_values": {
+    "bathrooms": 0,
+    "bedrooms": 0,
+    "city": 0,
+    "condition": 0,
+    "country": 0,
+    "date": 0,
+    "floors": 0,
+    "price": 0,
+    "sqft_above": 0,
+    "sqft_basement": 0,
+    "sqft_living": 0,
+    "sqft_lot": 0,
+    "statezip": 0,
+    "street": 0,
+    "view": 0,
+    "waterfront": 0,
+    "yr_built": 0,
+    "yr_renovated": 0
+  },
+  "raw_sha256": "6ee4b80d887b92bafed19d11e59614d60b78b9cfc1aed7ad5c37e8cd5f20fa1f",
+  "raw_shape": [
+    4600,
+    18
+  ],
+  "settings": {
+    "include_zip_code": true,
+    "seed": 42,
+    "test_fraction": 0.15,
+    "validation_fraction": 0.15
+  },
+  "splits": {
+    "test": {
+      "properties": 672,
+      "rows": 684,
+      "sha256": "a9f916e32b29180aed1d769ee07f71561fbfe6dc2d8fab05e005ad248dd41d56"
+    },
+    "train": {
+      "properties": 3133,
+      "rows": 3183,
+      "sha256": "1d5356529cfaf973df7a1df49132861116b37ca965c72cdd7b9483c4c07ad980"
+    },
+    "validation": {
+      "properties": 672,
+      "rows": 684,
+      "sha256": "98c704bafe9bf8eb2d36d9411e8bc795a44b0237df830e5a4c3e65895d647cb3"
+    }
+  }
+}

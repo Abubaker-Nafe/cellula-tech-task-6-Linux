@@ -1,0 +1,350 @@
+--- 01_company_directory.sh ---
+Company directory tree
+.
+./Engineering
+./Engineering/Development
+./Engineering/Testing
+./HR
+./HR/Payroll
+./HR/Recruitment
+./Marketing
+./Marketing/Campaigns
+./Marketing/SocialMedia
+./company_info.txt
+
+Current working directory
+<project>/Linux_commands/demo/Company
+
+All entries, including hidden entries
+total 20
+drwxrwxr-x 5 nafe nafe 4096 Nov 23 18:33 .
+drwxrwxr-x 3 nafe nafe 4096 Nov 23 18:33 ..
+drwxrwxr-x 4 nafe nafe 4096 Nov 23 18:33 Engineering
+drwxrwxr-x 4 nafe nafe 4096 Nov 23 18:33 HR
+drwxrwxr-x 4 nafe nafe 4096 Nov 23 18:33 Marketing
+-rw-rw-r-- 1 nafe nafe    0 Nov 23 18:33 company_info.txt
+
+--- 02_employee_files.sh ---
+'employee1.txt' -> 'HR/employee1.txt'
+'employee2.txt' -> 'HR/employee2.txt'
+renamed 'employee3.txt' -> 'Engineering/employee3.txt'
+renamed 'employee4.txt' -> 'Marketing/employee4.txt'
+renamed 'employee5.txt' -> 'manager.txt'
+removed 'HR/employee2.txt'
+
+Final employee files
+./Engineering/employee3.txt
+./HR/employee1.txt
+./Marketing/employee4.txt
+./employee1.txt
+./employee2.txt
+./manager.txt
+
+--- 03_reading_reports.sh ---
+Complete January report
+January 02 - HR opened three engineering vacancies.
+January 03 - Engineering set the release scope.
+January 04 - Marketing audited the company social accounts.
+January 05 - Payroll reconciled December employee payments.
+January 08 - Recruitment shortlisted eight candidates.
+January 09 - Testing recorded twelve defects in the staging build.
+January 10 - Development shipped the prototype to staging.
+January 11 - Marketing scheduled the first product webinar.
+January 12 - HR published an updated onboarding checklist.
+January 15 - Engineering reviewed the backup recovery procedure.
+January 17 - Testing verified the account registration flow.
+January 19 - Marketing approved three campaign designs.
+January 22 - Development added automated checks for API responses.
+January 25 - Payroll validated overtime records with team leads.
+January 31 - Department leads shared their monthly status reports.
+
+First five February lines
+February 01 - Recruitment interviewed five shortlisted applicants.
+February 02 - Engineering drafted migration notes for the release.
+February 05 - Marketing published the new product landing page.
+February 06 - Testing reproduced a defect in the invite flow.
+February 07 - Payroll reviewed payroll calendar changes.
+
+Last seven March lines
+March 13 - Engineering reviewed the first week of service logs.
+March 14 - Testing repeated the payment reconciliation scenarios.
+March 18 - HR collected onboarding feedback from new hires.
+March 19 - Development resolved two follow-up monitoring issues.
+March 21 - Marketing prepared the next quarter's webinar schedule.
+March 25 - Payroll balanced the quarter-end payment totals.
+March 29 - Department leads approved the quarterly operations report.
+
+Line, word and character counts
+  15  134  901 january.txt
+  15  144  939 february.txt
+  15  140  944 march.txt
+  45  418 2784 total
+
+Complete quarterly report
+January 02 - HR opened three engineering vacancies.
+January 03 - Engineering set the release scope.
+January 04 - Marketing audited the company social accounts.
+January 05 - Payroll reconciled December employee payments.
+January 08 - Recruitment shortlisted eight candidates.
+January 09 - Testing recorded twelve defects in the staging build.
+January 10 - Development shipped the prototype to staging.
+January 11 - Marketing scheduled the first product webinar.
+January 12 - HR published an updated onboarding checklist.
+January 15 - Engineering reviewed the backup recovery procedure.
+January 17 - Testing verified the account registration flow.
+January 19 - Marketing approved three campaign designs.
+January 22 - Development added automated checks for API responses.
+January 25 - Payroll validated overtime records with team leads.
+January 31 - Department leads shared their monthly status reports.
+February 01 - Recruitment interviewed five shortlisted applicants.
+February 02 - Engineering drafted migration notes for the release.
+February 05 - Marketing published the new product landing page.
+February 06 - Testing reproduced a defect in the invite flow.
+February 07 - Payroll reviewed payroll calendar changes.
+February 08 - Development completed the migration in staging.
+February 09 - HR held the first new hire orientation.
+February 12 - Marketing reviewed webinar attendance by channel.
+February 13 - Testing ran the full regression suite.
+February 15 - Engineering reduced the database query timeout rate.
+February 16 - Payroll confirmed the quarterly deduction totals.
+February 19 - Recruitment sent offers for two open positions.
+February 21 - Marketing updated product screenshots and captions.
+February 26 - Testing signed off on the release candidate.
+February 29 - Department leads closed the month with a release review.
+March 01 - Engineering deployed the release to production.
+March 04 - Testing monitored sign-in and registration after deployment.
+March 05 - HR onboarded two new engineering employees.
+March 06 - Marketing published the release announcement.
+March 07 - Payroll reviewed employee reimbursement requests.
+March 08 - Development documented the production rollback steps.
+March 11 - Recruitment closed the two filled vacancies.
+March 12 - Marketing compared campaign traffic against its target.
+March 13 - Engineering reviewed the first week of service logs.
+March 14 - Testing repeated the payment reconciliation scenarios.
+March 18 - HR collected onboarding feedback from new hires.
+March 19 - Development resolved two follow-up monitoring issues.
+March 21 - Marketing prepared the next quarter's webinar schedule.
+March 25 - Payroll balanced the quarter-end payment totals.
+March 29 - Department leads approved the quarterly operations report.
+
+--- 04_finding_files.sh ---
+Number of project files before generating the error report
+20
+
+All .txt files
+./Backup/archive.txt
+./Backup/old_notes.txt
+./Config/readme.txt
+./notes.txt
+./tasks.txt
+
+Every server.conf
+./Config/server.conf
+./server.conf
+
+Files larger than 1 KB (1,024 bytes)
+3040 bytes  ./Backup/archive.txt
+
+Log entries matching the whole word ERROR
+./Backup/backup.log:2:ERROR Backup destination unavailable
+./Scripts/maintenance.log:2:ERROR: Disk quota reached
+./app.log:2:ERROR Database connection timed out
+
+--- 05_permissions_and_links.sh ---
+Numeric modes in the long listing
+-rw------- 1 nafe nafe 22 Nov 23 18:33 private.txt
+-rw-r--r-- 1 nafe nafe 22 Nov 23 18:33 public.txt
+-rwxr-xr-x 1 nafe nafe 54 Nov 23 18:33 script.sh
+
+Private file after symbolic chmod
+600 -rw------- private.txt
+
+Inodes and link information
+1578608 -rw-r--r-- 2 nafe nafe 22 Nov 23 18:33 public.txt
+1578608 -rw-r--r-- 2 nafe nafe 22 Nov 23 18:33 public_backup
+1578610 -rwxr-xr-x 1 nafe nafe 54 Nov 23 18:33 script.sh
+1578611 lrwxrwxrwx 1 nafe nafe  9 Nov 23 18:33 script_link -> script.sh
+public.txt inode=1578608 hard_links=2 type=regular file
+public_backup inode=1578608 hard_links=2 type=regular file
+script.sh inode=1578610 hard_links=1 type=regular file
+script_link inode=1578611 hard_links=1 type=symbolic link
+
+Symbolic link target
+script.sh
+Dereferenced script_link inode=1578610
+SecurityLab script ran
+
+--- 06_redirection_and_pipelines.sh ---
+Line counts appended to summary.txt
+ 50 even.txt
+ 50 odd.txt
+100 total
+
+Captured standard error
+error: unexpected argument '--task9-invalid-option' found
+
+tip: a similar argument exists: '--si'
+
+Usage: ls [OPTION]... [FILE]...
+
+For more information, try '--help'.
+
+Ten largest numbers
+100
+99
+98
+97
+96
+95
+94
+93
+92
+91
+
+--- 07_employee_database.sh ---
+Employees sorted alphabetically by name
+ID,Name,Department,Salary
+7,Ahmed Mostafa,Operations,9300
+2,Amina Saleh,HR,8400
+11,Bilal Amin,Engineering,14900
+13,Dina Samy,HR,10200
+16,Farah Nabil,Engineering,12100
+22,Hadi Yassin,Operations,9100
+20,Hamza Said,HR,9500
+10,Hana Adel,Finance,8700
+1,Karim Ali,Marketing,9600
+5,Layla Hassan,Engineering,12600
+19,Leen Ibrahim,Operations,10100
+23,Lina Fahmy,Finance,11200
+24,Malik Samy,Marketing,9200
+14,Mariam Omar,Finance,11500
+9,Maya Khalil,Operations,13200
+18,Nadia Emad,Marketing,8800
+3,Noor Saad,Engineering,13800
+8,Omar Nasser,HR,9900
+15,Rami Hany,Operations,9800
+6,Salma Tarek,Marketing,10400
+12,Samir Fouad,Marketing,7900
+21,Sara Zaki,Engineering,13500
+17,Tamer Hamid,Finance,10000
+4,Youssef Ashraf,Finance,10700
+
+Unique departments
+Engineering
+Finance
+HR
+Marketing
+Operations
+
+Employees per department
+      5 Engineering
+      5 Finance
+      4 HR
+      5 Marketing
+      5 Operations
+
+Employees earning more than 10000
+ID,Name,Department,Salary
+3,Noor Saad,Engineering,13800
+4,Youssef Ashraf,Finance,10700
+5,Layla Hassan,Engineering,12600
+6,Salma Tarek,Marketing,10400
+9,Maya Khalil,Operations,13200
+11,Bilal Amin,Engineering,14900
+13,Dina Samy,HR,10200
+14,Mariam Omar,Finance,11500
+16,Farah Nabil,Engineering,12100
+19,Leen Ibrahim,Operations,10100
+21,Sara Zaki,Engineering,13500
+23,Lina Fahmy,Finance,11200
+
+--- 08_process_monitoring.sh ---
+Background scripts and recorded PIDs
+process1.sh 166
+process2.sh 167
+process3.sh 168
+
+Process status and resource use (RSS in KiB)
+    PID    PPID STAT %CPU %MEM   RSS     ELAPSED COMMAND
+    166     162 S     0.0  0.0  3780       00:00 bash <project>/Linux_commands/process1.sh
+    167     162 S     0.0  0.0  3788       00:00 bash <project>/Linux_commands/process2.sh
+    168     162 S     0.0  0.0  3792       00:00 bash <project>/Linux_commands/process3.sh
+
+Terminating process2.sh (PID 167)
+
+Verifying that process1.sh and process3.sh are still running
+    PID STAT %CPU %MEM   RSS COMMAND
+    166 S     0.0  0.0  4052 bash <project>/Linux_commands/process1.sh
+    168 S     0.0  0.0  4064 bash <project>/Linux_commands/process3.sh
+
+All three processes have stopped. Timestamp logs follow.
+process1.sh 2026-11-23T18:33:16Z
+process1.sh 2026-11-23T18:33:21Z
+process2.sh 2026-11-23T18:33:16Z
+process2.sh 2026-11-23T18:33:21Z
+process3.sh 2026-11-23T18:33:16Z
+process3.sh 2026-11-23T18:33:21Z
+
+--- 09 Project generator ---
+Enter a project name: Enter the number of required directories (at least 4):
+Generated project structure
+.
+./config
+./config/settings.conf
+./docs
+./docs/README.md
+./extra_5
+./extra_6
+./src
+./src/main.py
+./tests
+./tests/test_main.py
+Successfully created project MentorDemo with 6 subdirectories.
+
+--- 10 File information checker ---
+Enter a file or directory path:
+Type: regular file
+Filename: private.txt
+Extension: txt
+Size: 22 bytes
+Permissions: -rw------- (600)
+Lines: 1
+Readable: yes
+Writable: yes
+Executable: no
+Enter a file or directory path:
+Type: directory
+Immediate entries, including hidden entries
+Files: 4
+Subdirectories: 3
+Recursive files: 7
+Recursive subdirectories: 9
+Readable: yes
+Writable: yes
+Executable: yes
+
+--- 11 File organizer ---
+Created 25 sample downloads in <project>/Linux_commands/demo/Downloads
+Enter a file or directory path:
+Type: directory
+Immediate entries, including hidden entries
+Files: 25
+Subdirectories: 0
+Recursive files: 25
+Recursive subdirectories: 0
+Readable: yes
+Writable: yes
+Executable: yes
+File organization report
+
+Documents  5
+Images     5
+Audio      3
+Videos     3
+Archives   3
+Scripts    3
+Others     3
+
+Total files moved: 25
+
+All 11 assignments completed in <project>/Linux_commands/demo

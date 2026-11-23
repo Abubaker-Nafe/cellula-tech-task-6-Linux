@@ -1,0 +1,29 @@
+prepare:
+  seed: 42
+  test_fraction: 0.15
+  validation_fraction: 0.15
+  include_zip_code: true
+
+train:
+  experiment_name: Cellula House Prices
+  models:
+    median_baseline:
+      type: dummy
+      parameters:
+        strategy: median
+    ridge:
+      type: ridge
+      parameters:
+        alpha: 10.0
+    forest_shallow:
+      type: random_forest
+      parameters:
+        n_estimators: 120
+        max_depth: 10
+        min_samples_leaf: 4
+    forest_deep:
+      type: random_forest
+      parameters:
+        n_estimators: 120
+        max_depth: 18
+        min_samples_leaf: 2

@@ -1,0 +1,42 @@
+stages:
+  prepare:
+    cmd: python -m src.data_preprocessing
+    deps:
+      - data/raw/data.csv
+      - requirements.txt
+      - src/common.py
+      - src/data_preprocessing.py
+    params:
+      - config/params.yaml:
+          - prepare
+    outs:
+      - data/processed
+      - reports/data_profile.json
+      - reports/price_distribution.png
+  train:
+    cmd: python -m src.train
+    deps:
+      - data/processed
+      - reports/data_profile.json
+      - reports/price_distribution.png
+      - requirements.txt
+      - src/common.py
+      - src/train.py
+    params:
+      - config/params.yaml:
+          - train
+    outs:
+      - models
+  evaluate:
+    cmd: python -m src.evaluate
+    deps:
+      - data/processed
+      - models
+      - requirements.txt
+      - src/common.py
+      - src/evaluate.py
+    metrics:
+      - reports/metrics.json
+    outs:
+      - reports/predictions.csv
+      - reports/actual_vs_predicted.png

@@ -1,0 +1,139 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python -m src.data_preprocessing
+    deps:
+    - path: data/raw/data.csv
+      hash: md5
+      md5: 9cb2bcd4e66b982c4e6664e6eea1ab41
+      size: 526795
+    - path: requirements.txt
+      hash: md5
+      md5: e99f79a8d857006430698840fd699e4a
+      size: 2755
+    - path: src/common.py
+      hash: md5
+      md5: 04fd131e3a3e20474641d7c5d8a18f44
+      size: 2116
+    - path: src/data_preprocessing.py
+      hash: md5
+      md5: 82f3a9ebfe59bcd532e90c4626d1eda1
+      size: 5186
+    params:
+      config/params.yaml:
+        prepare:
+          seed: 42
+          test_fraction: 0.15
+          validation_fraction: 0.15
+          include_zip_code: true
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: 35cfbb75ef9665d975bbd0d67ba6a5e9.dir
+      size: 313161
+      nfiles: 4
+    - path: reports/data_profile.json
+      hash: md5
+      md5: 3535775058d29adce8ee96f905f44c1d
+      size: 2599
+    - path: reports/price_distribution.png
+      hash: md5
+      md5: 28a6d29b2fe56aefd2739e79f2978d43
+      size: 30263
+  train:
+    cmd: python -m src.train
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: 35cfbb75ef9665d975bbd0d67ba6a5e9.dir
+      size: 313161
+      nfiles: 4
+    - path: reports/data_profile.json
+      hash: md5
+      md5: 3535775058d29adce8ee96f905f44c1d
+      size: 2599
+    - path: reports/price_distribution.png
+      hash: md5
+      md5: 28a6d29b2fe56aefd2739e79f2978d43
+      size: 30263
+    - path: requirements.txt
+      hash: md5
+      md5: e99f79a8d857006430698840fd699e4a
+      size: 2755
+    - path: src/common.py
+      hash: md5
+      md5: 04fd131e3a3e20474641d7c5d8a18f44
+      size: 2116
+    - path: src/train.py
+      hash: md5
+      md5: ee4cba4489c2897f3d998ba22061fd75
+      size: 5083
+    params:
+      config/params.yaml:
+        train:
+          experiment_name: Cellula House Prices
+          models:
+            median_baseline:
+              type: dummy
+              parameters:
+                strategy: median
+            ridge:
+              type: ridge
+              parameters:
+                alpha: 10.0
+            forest_shallow:
+              type: random_forest
+              parameters:
+                n_estimators: 120
+                max_depth: 10
+                min_samples_leaf: 4
+            forest_deep:
+              type: random_forest
+              parameters:
+                n_estimators: 120
+                max_depth: 18
+                min_samples_leaf: 2
+    outs:
+    - path: models
+      hash: md5
+      md5: f3b6a40871bf85c436578f88106234c3.dir
+      size: 3983398
+      nfiles: 5
+  evaluate:
+    cmd: python -m src.evaluate
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: 35cfbb75ef9665d975bbd0d67ba6a5e9.dir
+      size: 313161
+      nfiles: 4
+    - path: models
+      hash: md5
+      md5: f3b6a40871bf85c436578f88106234c3.dir
+      size: 3983398
+      nfiles: 5
+    - path: requirements.txt
+      hash: md5
+      md5: e99f79a8d857006430698840fd699e4a
+      size: 2755
+    - path: src/common.py
+      hash: md5
+      md5: 04fd131e3a3e20474641d7c5d8a18f44
+      size: 2116
+    - path: src/evaluate.py
+      hash: md5
+      md5: d41a10891477f714ecd55f2bd7e4e653
+      size: 3578
+    outs:
+    - path: reports/actual_vs_predicted.png
+      hash: md5
+      md5: 9605748c65b6167c9d298a52394493b3
+      size: 128021
+    - path: reports/metrics.json
+      hash: md5
+      md5: 19908b5ba30f592d46218ee2c965eaa1
+      size: 1061
+    - path: reports/predictions.csv
+      hash: md5
+      md5: 0c3a3bd7f172b6bba0b41e958cadff1d
+      size: 31768

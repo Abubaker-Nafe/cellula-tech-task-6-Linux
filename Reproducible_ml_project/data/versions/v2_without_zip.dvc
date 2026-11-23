@@ -1,0 +1,6 @@
+outs:
+- md5: 92d8f29823ba96aa63325cee6dffcec2.dir
+  size: 285813
+  nfiles: 4
+  hash: md5
+  path: v2_without_zip

@@ -1,0 +1,20 @@
+Prepared Kaggle data restored in a fresh Git checkout
+
+This verification used two Git commits and a directory-backed DVC store in an isolated workspace.
+The raw Kaggle dataset and split membership were fixed. Version 2 omits the ZIP code feature.
+
+Restored version 2 from the local DVC store
+Git 2cc04a7d463e7039fddab41c328347eaa9727768
+train.csv SHA-256 6bbb899a0d54881a590d4fd1208379570a9dc34f9b8d5162a234e3cab18e34fb
+bedrooms,bathrooms,sqft_living,sqft_lot,floors,waterfront,view,condition,sqft_above,sqft_basement,yr_built,yr_renovated,city,price
+M       data/processed/
+M       reports/data_profile.json
+6 files fetched and 5 files modified
+
+Restored version 1 from the local DVC store
+Git 9fd85944f4abc7c3e911b22c0a7f66b5321d12b2
+train.csv SHA-256 1d5356529cfaf973df7a1df49132861116b37ca965c72cdd7b9483c4c07ad980
+bedrooms,bathrooms,sqft_living,sqft_lot,floors,waterfront,view,condition,sqft_above,sqft_basement,yr_built,yr_renovated,city,zip_code,price
+Verified data/raw/data.csv
+
+The restored version 1 training split matches the delivered project byte for byte.

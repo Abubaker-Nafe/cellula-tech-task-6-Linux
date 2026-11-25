@@ -1,0 +1,72 @@
+#1795596355
+set -euo pipefail
+#1795596355
+mkdir -- ProjectFiles
+#1795596355
+cd -- ProjectFiles
+#1795596355
+mkdir -- Backup Config Scripts
+#1795596355
+printf '%s\n' 'Project notes' > notes.txt
+#1795596355
+printf '%s\n' 'Review staging deployment' > tasks.txt
+#1795596355
+printf 'port=8080\nenvironment=production\n' > server.conf
+#1795596355
+printf 'INFO Application started\nERROR Database connection timed out\n' > app.log
+#1795596355
+printf 'id,item\n1,router\n' > inventory.csv
+#1795596355
+printf 'INFO Login audit started\nINFO ERROR_COUNT=0\n' > audit.log
+#1795596355
+printf '%s\n' 'Notes from the previous release' > Backup/old_notes.txt
+#1795596355
+printf 'id,item\n1,spare switch\n' > Backup/snapshot.csv
+#1795596355
+printf 'INFO Backup started\nERROR Backup destination unavailable\n' > Backup/backup.log
+#1795596355
+printf 'Archived release manifest, record %03d\n' {1..80} > Backup/archive.txt
+#1795596355
+printf '%s\n' 'retention_days=30' > Backup/settings.conf
+#1795596355
+printf 'port=8081\nenvironment=staging\n' > Config/server.conf
+#1795596355
+printf '%s\n' 'timeout_seconds=10' > Config/client.conf
+#1795596355
+printf '%s\n' 'retries=3' > Config/defaults.conf
+#1795596355
+printf '%s\n' 'Configuration for the staging service' > Config/readme.txt
+#1795596355
+printf 'id,role\n1,operator\n' > Config/users.csv
+#1795596355
+printf '#!/usr/bin/env bash\nprintf "Deploy\\n"\n' > Scripts/deploy.sh
+#1795596355
+printf '#!/usr/bin/env bash\nprintf "Healthy\\n"\n' > Scripts/health.sh
+#1795596355
+printf '#!/usr/bin/env bash\nprintf "Maintenance complete\\n"\n' > Scripts/maintenance.sh
+#1795596355
+printf 'INFO Health check started\nERROR: Disk quota reached\n' > Scripts/maintenance.log
+#1795596355
+printf 'Number of project files before generating the error report\n'
+#1795596355
+find . -type f -printf '.' | wc -c
+#1795596355
+printf '\nAll .txt files\n'
+#1795596355
+find . -type f -name '*.txt' -print | LC_ALL=C sort
+#1795596355
+printf '\nEvery server.conf\n'
+#1795596355
+find . -type f -name 'server.conf' -print | LC_ALL=C sort
+#1795596355
+printf '\nFiles larger than 1 KB (1,024 bytes)\n'
+#1795596355
+find . -type f -size +1024c -printf '%s bytes  %p\n' | LC_ALL=C sort
+#1795596355
+find . -type f -name '*.log' -print0 | LC_ALL=C sort -z | xargs -0 -r grep -Hnw -- ERROR > errors.txt
+#1795596356
+printf '\nLog entries matching the whole word ERROR\n'
+#1795596356
+cat -- errors.txt
+#1795596356
+history -w "$TASK9_HISTORY"

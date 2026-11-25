@@ -1,0 +1,14 @@
+#1795596363
+set -euo pipefail
+#1795596363
+printf 'MentorDemo\n6\n' | BASH_XTRACEFD=9 bash -x "$TASK9_SCRIPTS/project_generator.sh" 9>> "$TASK9_TRACES/09_project_generator.txt"
+#1795596363
+if printf '\n' | BASH_XTRACEFD=9 bash -x "$TASK9_SCRIPTS/project_generator.sh" 9>> "$TASK9_TRACES/09_project_generator.txt"; then exit 1; fi
+#1795596363
+if printf 'MentorDemo\n4\n' | BASH_XTRACEFD=9 bash -x "$TASK9_SCRIPTS/project_generator.sh" 9>> "$TASK9_TRACES/09_project_generator.txt"; then exit 1; fi
+#1795596363
+if printf 'TooSmall\n3\n' | BASH_XTRACEFD=9 bash -x "$TASK9_SCRIPTS/project_generator.sh" 9>> "$TASK9_TRACES/09_project_generator.txt"; then exit 1; fi
+#1795596363
+(cd -- MentorDemo && python3 -B -m unittest discover -s tests)
+#1795596363
+history -w "$TASK9_HISTORY"

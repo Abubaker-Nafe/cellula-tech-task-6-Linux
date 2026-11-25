@@ -1,0 +1,35 @@
+#1795596356
+set -euo pipefail
+#1795596356
+mkdir -- PipelineLab
+#1795596356
+cd -- PipelineLab
+#1795596356
+seq 1 100 > numbers.txt
+#1795596356
+awk '$1 % 2 == 0' numbers.txt > even.txt
+#1795596356
+awk '$1 % 2 != 0' numbers.txt > odd.txt
+#1795596356
+: > summary.txt
+#1795596356
+wc -l -- even.txt odd.txt >> summary.txt
+#1795596356
+printf 'Line counts appended to summary.txt\n'
+#1795596356
+cat -- summary.txt
+#1795596356
+if ls --task9-invalid-option 2> errors.log; then
+    printf 'Expected the invalid option to fail.\n' >&2
+    exit 1
+fi
+#1795596356
+printf '\nCaptured standard error\n'
+#1795596356
+cat -- errors.log
+#1795596356
+printf '\nTen largest numbers\n'
+#1795596356
+sort -nr -- numbers.txt | head -n 10
+#1795596356
+history -w "$TASK9_HISTORY"

@@ -1,5 +1,14 @@
---- 01_company_directory.sh ---
+Linux assignments recorded in interactive Bash sessions
+
+--- 01_company_directory ---
+$ set -euo pipefail
+$ mkdir -- Company
+$ cd -- Company
+$ mkdir -p -- HR/{Recruitment,Payroll} Engineering/{Development,Testing} Marketing/{SocialMedia,Campaigns}
+$ touch -- company_info.txt
+$ printf 'Company directory tree\n'
 Company directory tree
+$ find . -print | LC_ALL=C sort
 .
 ./Engineering
 ./Engineering/Development
@@ -11,37 +20,128 @@ Company directory tree
 ./Marketing/Campaigns
 ./Marketing/SocialMedia
 ./company_info.txt
+$ printf '\nCurrent working directory\n'
 
 Current working directory
-<project>/Linux_commands/demo/Company
+$ pwd
+<demo>/Company
+$ printf '\nAll entries, including hidden entries\n'
 
 All entries, including hidden entries
+$ ls -la
 total 20
-drwxrwxr-x 5 nafe nafe 4096 Nov 23 18:33 .
-drwxrwxr-x 3 nafe nafe 4096 Nov 23 18:33 ..
-drwxrwxr-x 4 nafe nafe 4096 Nov 23 18:33 Engineering
-drwxrwxr-x 4 nafe nafe 4096 Nov 23 18:33 HR
-drwxrwxr-x 4 nafe nafe 4096 Nov 23 18:33 Marketing
--rw-rw-r-- 1 nafe nafe    0 Nov 23 18:33 company_info.txt
+drwxrwxr-x 5 nafe nafe 4096 Nov 25 08:45 .
+drwxrwxr-x 3 nafe nafe 4096 Nov 25 08:45 ..
+drwxrwxr-x 4 nafe nafe 4096 Nov 25 08:45 Engineering
+drwxrwxr-x 4 nafe nafe 4096 Nov 25 08:45 HR
+drwxrwxr-x 4 nafe nafe 4096 Nov 25 08:45 Marketing
+-rw-rw-r-- 1 nafe nafe    0 Nov 25 08:45 company_info.txt
+$ history -w "$TASK9_HISTORY"
+$ exit
+exit
 
---- 02_employee_files.sh ---
+--- 02_employee_files ---
+$ set -euo pipefail
+$ cd -- Company
+$ for path in employee{1..5}.txt manager.txt HR/employee{1,2}.txt Engineering/employee3.txt Marketing/employee4.txt; do
+>     if [[ -e $path || -L $path ]]; then
+>         printf 'Employee output already exists at %s\n' "$path" >&2
+>         exit 1
+>     fi
+> done
+$ touch -- employee{1..5}.txt
+$ while IFS='|' read -r file employee department; do
+>     printf 'Name: %s\nDepartment: %s\n' "$employee" "$department" > "$file"
+> done <<'EMPLOYEES'
+> employee1.txt|Amina Saleh|HR
+> employee2.txt|Omar Nasser|HR
+> employee3.txt|Layla Hassan|Engineering
+> employee4.txt|Karim Ali|Marketing
+> employee5.txt|Maya Khalil|Management
+> EMPLOYEES
+$ cp -v -- employee1.txt employee2.txt HR/
 'employee1.txt' -> 'HR/employee1.txt'
 'employee2.txt' -> 'HR/employee2.txt'
+$ mv -v -- employee3.txt Engineering/
 renamed 'employee3.txt' -> 'Engineering/employee3.txt'
+$ mv -v -- employee4.txt Marketing/
 renamed 'employee4.txt' -> 'Marketing/employee4.txt'
+$ mv -v -- employee5.txt manager.txt
 renamed 'employee5.txt' -> 'manager.txt'
+$ rm -v -- HR/employee2.txt
 removed 'HR/employee2.txt'
+$ printf '\nFinal employee files\n'
 
 Final employee files
+$ find . -type f \( -name 'employee*.txt' -o -name manager.txt \) -print | LC_ALL=C sort
 ./Engineering/employee3.txt
 ./HR/employee1.txt
 ./Marketing/employee4.txt
 ./employee1.txt
 ./employee2.txt
 ./manager.txt
+$ history -w "$TASK9_HISTORY"
+$ exit
+exit
 
---- 03_reading_reports.sh ---
+--- 03_reading_reports ---
+$ set -euo pipefail
+$ mkdir -- Reports
+$ cd -- Reports
+$ cat > january.txt <<'JANUARY'
+> January 02 - HR opened three engineering vacancies.
+> January 03 - Engineering set the release scope.
+> January 04 - Marketing audited the company social accounts.
+> January 05 - Payroll reconciled December employee payments.
+> January 08 - Recruitment shortlisted eight candidates.
+> January 09 - Testing recorded twelve defects in the staging build.
+> January 10 - Development shipped the prototype to staging.
+> January 11 - Marketing scheduled the first product webinar.
+> January 12 - HR published an updated onboarding checklist.
+> January 15 - Engineering reviewed the backup recovery procedure.
+> January 17 - Testing verified the account registration flow.
+> January 19 - Marketing approved three campaign designs.
+> January 22 - Development added automated checks for API responses.
+> January 25 - Payroll validated overtime records with team leads.
+> January 31 - Department leads shared their monthly status reports.
+> JANUARY
+$ cat > february.txt <<'FEBRUARY'
+> February 01 - Recruitment interviewed five shortlisted applicants.
+> February 02 - Engineering drafted migration notes for the release.
+> February 05 - Marketing published the new product landing page.
+> February 06 - Testing reproduced a defect in the invite flow.
+> February 07 - Payroll reviewed payroll calendar changes.
+> February 08 - Development completed the migration in staging.
+> February 09 - HR held the first new hire orientation.
+> February 12 - Marketing reviewed webinar attendance by channel.
+> February 13 - Testing ran the full regression suite.
+> February 15 - Engineering reduced the database query timeout rate.
+> February 16 - Payroll confirmed the quarterly deduction totals.
+> February 19 - Recruitment sent offers for two open positions.
+> February 21 - Marketing updated product screenshots and captions.
+> February 26 - Testing signed off on the release candidate.
+> February 29 - Department leads closed the month with a release review.
+> FEBRUARY
+$ cat > march.txt <<'MARCH'
+> March 01 - Engineering deployed the release to production.
+> March 04 - Testing monitored sign-in and registration after deployment.
+> March 05 - HR onboarded two new engineering employees.
+> March 06 - Marketing published the release announcement.
+> March 07 - Payroll reviewed employee reimbursement requests.
+> March 08 - Development documented the production rollback steps.
+> March 11 - Recruitment closed the two filled vacancies.
+> March 12 - Marketing compared campaign traffic against its target.
+> March 13 - Engineering reviewed the first week of service logs.
+> March 14 - Testing repeated the payment reconciliation scenarios.
+> March 18 - HR collected onboarding feedback from new hires.
+> March 19 - Development resolved two follow-up monitoring issues.
+> March 21 - Marketing prepared the next quarter's webinar schedule.
+> March 25 - Payroll balanced the quarter-end payment totals.
+> March 29 - Department leads approved the quarterly operations report.
+> MARCH
+$ printf 'Complete January report\n'
 Complete January report
+$ cat -- january.txt
 January 02 - HR opened three engineering vacancies.
 January 03 - Engineering set the release scope.
 January 04 - Marketing audited the company social accounts.
@@ -57,15 +157,19 @@ January 19 - Marketing approved three campaign designs.
 January 22 - Development added automated checks for API responses.
 January 25 - Payroll validated overtime records with team leads.
 January 31 - Department leads shared their monthly status reports.
+$ printf '\nFirst five February lines\n'
 
 First five February lines
+$ head -n 5 -- february.txt
 February 01 - Recruitment interviewed five shortlisted applicants.
 February 02 - Engineering drafted migration notes for the release.
 February 05 - Marketing published the new product landing page.
 February 06 - Testing reproduced a defect in the invite flow.
 February 07 - Payroll reviewed payroll calendar changes.
+$ printf '\nLast seven March lines\n'
 
 Last seven March lines
+$ tail -n 7 -- march.txt
 March 13 - Engineering reviewed the first week of service logs.
 March 14 - Testing repeated the payment reconciliation scenarios.
 March 18 - HR collected onboarding feedback from new hires.
@@ -73,14 +177,19 @@ March 19 - Development resolved two follow-up monitoring issues.
 March 21 - Marketing prepared the next quarter's webinar schedule.
 March 25 - Payroll balanced the quarter-end payment totals.
 March 29 - Department leads approved the quarterly operations report.
+$ printf '\nLine, word and character counts\n'
 
 Line, word and character counts
+$ wc -l -w -m -- january.txt february.txt march.txt
   15  134  901 january.txt
   15  144  939 february.txt
   15  140  944 march.txt
   45  418 2784 total
+$ cat -- january.txt february.txt march.txt > quarterly_report.txt
+$ printf '\nComplete quarterly report\n'
 
 Complete quarterly report
+$ cat -- quarterly_report.txt
 January 02 - HR opened three engineering vacancies.
 January 03 - Engineering set the release scope.
 January 04 - Marketing audited the company social accounts.
@@ -126,61 +235,144 @@ March 19 - Development resolved two follow-up monitoring issues.
 March 21 - Marketing prepared the next quarter's webinar schedule.
 March 25 - Payroll balanced the quarter-end payment totals.
 March 29 - Department leads approved the quarterly operations report.
+$ history -w "$TASK9_HISTORY"
+$ exit
+exit
 
---- 04_finding_files.sh ---
+--- 04_finding_files ---
+$ set -euo pipefail
+$ mkdir -- ProjectFiles
+$ cd -- ProjectFiles
+$ mkdir -- Backup Config Scripts
+$ printf '%s\n' 'Project notes' > notes.txt
+$ printf '%s\n' 'Review staging deployment' > tasks.txt
+$ printf 'port=8080\nenvironment=production\n' > server.conf
+$ printf 'INFO Application started\nERROR Database connection timed out\n' > app.log
+$ printf 'id,item\n1,router\n' > inventory.csv
+$ printf 'INFO Login audit started\nINFO ERROR_COUNT=0\n' > audit.log
+$ printf '%s\n' 'Notes from the previous release' > Backup/old_notes.txt
+$ printf 'id,item\n1,spare switch\n' > Backup/snapshot.csv
+$ printf 'INFO Backup started\nERROR Backup destination unavailable\n' > Backup/backup.log
+$ printf 'Archived release manifest, record %03d\n' {1..80} > Backup/archive.txt
+$ printf '%s\n' 'retention_days=30' > Backup/settings.conf
+$ printf 'port=8081\nenvironment=staging\n' > Config/server.conf
+$ printf '%s\n' 'timeout_seconds=10' > Config/client.conf
+$ printf '%s\n' 'retries=3' > Config/defaults.conf
+$ printf '%s\n' 'Configuration for the staging service' > Config/readme.txt
+$ printf 'id,role\n1,operator\n' > Config/users.csv
+$ printf '#!/usr/bin/env bash\nprintf "Deploy\\n"\n' > Scripts/deploy.sh
+$ printf '#!/usr/bin/env bash\nprintf "Healthy\\n"\n' > Scripts/health.sh
+$ printf '#!/usr/bin/env bash\nprintf "Maintenance complete\\n"\n' > Scripts/maintenance.sh
+$ printf 'INFO Health check started\nERROR: Disk quota reached\n' > Scripts/maintenance.log
+$ printf 'Number of project files before generating the error report\n'
 Number of project files before generating the error report
+$ find . -type f -printf '.' | wc -c
 20
+$ printf '\nAll .txt files\n'
 
 All .txt files
+$ find . -type f -name '*.txt' -print | LC_ALL=C sort
 ./Backup/archive.txt
 ./Backup/old_notes.txt
 ./Config/readme.txt
 ./notes.txt
 ./tasks.txt
+$ printf '\nEvery server.conf\n'
 
 Every server.conf
+$ find . -type f -name 'server.conf' -print | LC_ALL=C sort
 ./Config/server.conf
 ./server.conf
+$ printf '\nFiles larger than 1 KB (1,024 bytes)\n'
 
 Files larger than 1 KB (1,024 bytes)
+$ find . -type f -size +1024c -printf '%s bytes  %p\n' | LC_ALL=C sort
 3040 bytes  ./Backup/archive.txt
+$ find . -type f -name '*.log' -print0 | LC_ALL=C sort -z | xargs -0 -r grep -Hnw -- ERROR > errors.txt
+$ printf '\nLog entries matching the whole word ERROR\n'
 
 Log entries matching the whole word ERROR
+$ cat -- errors.txt
 ./Backup/backup.log:2:ERROR Backup destination unavailable
 ./Scripts/maintenance.log:2:ERROR: Disk quota reached
 ./app.log:2:ERROR Database connection timed out
+$ history -w "$TASK9_HISTORY"
+$ exit
+exit
 
---- 05_permissions_and_links.sh ---
+--- 05_permissions_and_links ---
+$ set -euo pipefail
+$ mkdir -- SecurityLab
+$ cd -- SecurityLab
+$ printf '%s\n' 'Public company notice' > public.txt
+$ printf '%s\n' 'Private payroll notes' > private.txt
+$ printf '#!/usr/bin/env bash\nprintf "SecurityLab script ran\\n"\n' > script.sh
+$ chmod 644 -- public.txt
+$ chmod 600 -- private.txt
+$ chmod 755 -- script.sh
+$ printf 'Numeric modes in the long listing\n'
 Numeric modes in the long listing
--rw------- 1 nafe nafe 22 Nov 23 18:33 private.txt
--rw-r--r-- 1 nafe nafe 22 Nov 23 18:33 public.txt
--rwxr-xr-x 1 nafe nafe 54 Nov 23 18:33 script.sh
+$ ls -l -- public.txt private.txt script.sh
+-rw------- 1 nafe nafe 22 Nov 25 08:45 private.txt
+-rw-r--r-- 1 nafe nafe 22 Nov 25 08:45 public.txt
+-rwxr-xr-x 1 nafe nafe 54 Nov 25 08:45 script.sh
+$ chmod u=rw,go= -- private.txt
+$ printf '\nPrivate file after symbolic chmod\n'
 
 Private file after symbolic chmod
+$ stat -c '%a %A %n' -- private.txt
 600 -rw------- private.txt
+$ ln -s -- script.sh script_link
+$ ln -- public.txt public_backup
+$ printf '\nInodes and link information\n'
 
 Inodes and link information
-1578608 -rw-r--r-- 2 nafe nafe 22 Nov 23 18:33 public.txt
-1578608 -rw-r--r-- 2 nafe nafe 22 Nov 23 18:33 public_backup
-1578610 -rwxr-xr-x 1 nafe nafe 54 Nov 23 18:33 script.sh
-1578611 lrwxrwxrwx 1 nafe nafe  9 Nov 23 18:33 script_link -> script.sh
-public.txt inode=1578608 hard_links=2 type=regular file
-public_backup inode=1578608 hard_links=2 type=regular file
-script.sh inode=1578610 hard_links=1 type=regular file
-script_link inode=1578611 hard_links=1 type=symbolic link
+$ ls -li -- public.txt public_backup script.sh script_link
+1600729 -rw-r--r-- 2 nafe nafe 22 Nov 25 08:45 public.txt
+1600729 -rw-r--r-- 2 nafe nafe 22 Nov 25 08:45 public_backup
+1600731 -rwxr-xr-x 1 nafe nafe 54 Nov 25 08:45 script.sh
+1600732 lrwxrwxrwx 1 nafe nafe  9 Nov 25 08:45 script_link -> script.sh
+$ stat -c '%n inode=%i hard_links=%h type=%F' -- public.txt public_backup script.sh script_link
+public.txt inode=1600729 hard_links=2 type=regular file
+public_backup inode=1600729 hard_links=2 type=regular file
+script.sh inode=1600731 hard_links=1 type=regular file
+script_link inode=1600732 hard_links=1 type=symbolic link
+$ printf '\nSymbolic link target\n'
 
 Symbolic link target
+$ readlink -- script_link
 script.sh
-Dereferenced script_link inode=1578610
+$ stat -L -c 'Dereferenced script_link inode=%i' -- script_link
+Dereferenced script_link inode=1600731
+$ ./script_link
 SecurityLab script ran
+$ history -w "$TASK9_HISTORY"
+$ exit
+exit
 
---- 06_redirection_and_pipelines.sh ---
+--- 06_redirection_and_pipelines ---
+$ set -euo pipefail
+$ mkdir -- PipelineLab
+$ cd -- PipelineLab
+$ seq 1 100 > numbers.txt
+$ awk '$1 % 2 == 0' numbers.txt > even.txt
+$ awk '$1 % 2 != 0' numbers.txt > odd.txt
+$ : > summary.txt
+$ wc -l -- even.txt odd.txt >> summary.txt
+$ printf 'Line counts appended to summary.txt\n'
 Line counts appended to summary.txt
+$ cat -- summary.txt
  50 even.txt
  50 odd.txt
 100 total
+$ if ls --task9-invalid-option 2> errors.log; then
+>     printf 'Expected the invalid option to fail.\n' >&2
+>     exit 1
+> fi
+$ printf '\nCaptured standard error\n'
 
 Captured standard error
+$ cat -- errors.log
 error: unexpected argument '--task9-invalid-option' found
 
 tip: a similar argument exists: '--si'
@@ -188,8 +380,10 @@ tip: a similar argument exists: '--si'
 Usage: ls [OPTION]... [FILE]...
 
 For more information, try '--help'.
+$ printf '\nTen largest numbers\n'
 
 Ten largest numbers
+$ sort -nr -- numbers.txt | head -n 10
 100
 99
 98
@@ -200,9 +394,49 @@ Ten largest numbers
 93
 92
 91
+$ history -w "$TASK9_HISTORY"
+$ exit
+exit
 
---- 07_employee_database.sh ---
+--- 07_employee_database ---
+$ set -euo pipefail
+$ mkdir -- DatabaseLab
+$ cd -- DatabaseLab
+$ cat > employees.csv <<'EMPLOYEES'
+> ID,Name,Department,Salary
+> 1,Karim Ali,Marketing,9600
+> 2,Amina Saleh,HR,8400
+> 3,Noor Saad,Engineering,13800
+> 4,Youssef Ashraf,Finance,10700
+> 5,Layla Hassan,Engineering,12600
+> 6,Salma Tarek,Marketing,10400
+> 7,Ahmed Mostafa,Operations,9300
+> 8,Omar Nasser,HR,9900
+> 9,Maya Khalil,Operations,13200
+> 10,Hana Adel,Finance,8700
+> 11,Bilal Amin,Engineering,14900
+> 12,Samir Fouad,Marketing,7900
+> 13,Dina Samy,HR,10200
+> 14,Mariam Omar,Finance,11500
+> 15,Rami Hany,Operations,9800
+> 16,Farah Nabil,Engineering,12100
+> 17,Tamer Hamid,Finance,10000
+> 18,Nadia Emad,Marketing,8800
+> 19,Leen Ibrahim,Operations,10100
+> 20,Hamza Said,HR,9500
+> 21,Sara Zaki,Engineering,13500
+> 22,Hadi Yassin,Operations,9100
+> 23,Lina Fahmy,Finance,11200
+> 24,Malik Samy,Marketing,9200
+> EMPLOYEES
+$ tail -n +2 -- employees.csv | cut -d, -f2 > names.txt
+$ {
+>     head -n 1 -- employees.csv
+>     tail -n +2 -- employees.csv | LC_ALL=C sort -t, -k2,2 -k1,1n
+> } > sorted_employees.csv
+$ printf 'Employees sorted alphabetically by name\n'
 Employees sorted alphabetically by name
+$ cat -- sorted_employees.csv
 ID,Name,Department,Salary
 7,Ahmed Mostafa,Operations,9300
 2,Amina Saleh,HR,8400
@@ -228,22 +462,29 @@ ID,Name,Department,Salary
 21,Sara Zaki,Engineering,13500
 17,Tamer Hamid,Finance,10000
 4,Youssef Ashraf,Finance,10700
+$ printf '\nUnique departments\n'
 
 Unique departments
+$ tail -n +2 -- employees.csv | cut -d, -f3 | LC_ALL=C sort -u
 Engineering
 Finance
 HR
 Marketing
 Operations
+$ printf '\nEmployees per department\n'
 
 Employees per department
+$ tail -n +2 -- employees.csv | cut -d, -f3 | LC_ALL=C sort | uniq -c
       5 Engineering
       5 Finance
       4 HR
       5 Marketing
       5 Operations
+$ awk -F, 'NR == 1 || $4 + 0 > 10000' employees.csv > high_salary.csv
+$ printf '\nEmployees earning more than 10000\n'
 
 Employees earning more than 10000
+$ cat -- high_salary.csv
 ID,Name,Department,Salary
 3,Noor Saad,Engineering,13800
 4,Youssef Ashraf,Finance,10700
@@ -257,35 +498,103 @@ ID,Name,Department,Salary
 19,Leen Ibrahim,Operations,10100
 21,Sara Zaki,Engineering,13500
 23,Lina Fahmy,Finance,11200
+$ history -w "$TASK9_HISTORY"
+$ exit
+exit
 
---- 08_process_monitoring.sh ---
+--- 08_process_monitoring ---
+$ set -euo pipefail
+$ scripts=$TASK9_SCRIPTS
+$ mkdir -- ProcessLab
+$ cd -- ProcessLab
+$ declare -A running=()
+$ cleanup() {
+>     local pid
+>     for pid in "${running[@]}"; do
+>         kill "$pid" 2>/dev/null || true
+>         wait "$pid" 2>/dev/null || true
+>     done
+> }
+$ trap cleanup EXIT
+$ trap 'exit 130' INT
+$ trap 'exit 143' TERM
+$ all_pids=()
+$ : > processes.txt
+$ for script in process{1..3}.sh; do
+>     "$scripts/$script" > "${script%.sh}.log" &
+>     pid=$!
+>     running[$script]=$pid
+>     all_pids+=("$pid")
+>     printf '%s %s\n' "$script" "$pid" >> processes.txt
+> done
+[1] 7365
+[2] 7366
+[3] 7367
+$ printf 'Background scripts and recorded PIDs\n'
 Background scripts and recorded PIDs
-process1.sh 166
-process2.sh 167
-process3.sh 168
+$ cat -- processes.txt
+process1.sh 7365
+process2.sh 7366
+process3.sh 7367
+$ printf '\nProcess status and resource use (RSS in KiB)\n'
 
 Process status and resource use (RSS in KiB)
+$ pid_list=$(IFS=,; printf '%s' "${all_pids[*]}")
+$ ps -p "$pid_list" -o pid,ppid,stat,%cpu,%mem,rss,etime,args
     PID    PPID STAT %CPU %MEM   RSS     ELAPSED COMMAND
-    166     162 S     0.0  0.0  3780       00:00 bash <project>/Linux_commands/process1.sh
-    167     162 S     0.0  0.0  3788       00:00 bash <project>/Linux_commands/process2.sh
-    168     162 S     0.0  0.0  3792       00:00 bash <project>/Linux_commands/process3.sh
+   7365    7363 S    25.0  0.0  3508       00:00 bash <exercise-folder>/process1.sh
+   7366    7363 S    25.0  0.0  3548       00:00 bash <exercise-folder>/process2.sh
+   7367    7363 S    25.0  0.0  3536       00:00 bash <exercise-folder>/process3.sh
+$ sleep 6
+$ printf '\nTerminating process2.sh (PID %s)\n' "${running[process2.sh]}"
 
-Terminating process2.sh (PID 167)
+Terminating process2.sh (PID 7366)
+$ kill -TERM "${running[process2.sh]}"
+$ wait "${running[process2.sh]}"
+[2]-  Done                       "$scripts/$script" > "${script%.sh}.log"
+$ unset 'running[process2.sh]'
+$ if kill -0 "${all_pids[1]}" 2>/dev/null; then
+>     printf 'process2.sh is still running.\n' >&2
+>     exit 1
+> fi
+$ printf '\nVerifying that process1.sh and process3.sh are still running\n'
 
 Verifying that process1.sh and process3.sh are still running
+$ kill -0 "${running[process1.sh]}" "${running[process3.sh]}"
+$ ps -p "${running[process1.sh]},${running[process3.sh]}" -o pid,stat,%cpu,%mem,rss,args
     PID STAT %CPU %MEM   RSS COMMAND
-    166 S     0.0  0.0  4052 bash <project>/Linux_commands/process1.sh
-    168 S     0.0  0.0  4064 bash <project>/Linux_commands/process3.sh
+   7365 S     0.3  0.0  3780 bash <exercise-folder>/process1.sh
+   7367 S     0.1  0.0  3808 bash <exercise-folder>/process3.sh
+$ for script in process1.sh process3.sh; do
+>     kill -TERM "${running[$script]}"
+>     wait "${running[$script]}"
+>     unset 'running[$script]'
+> done
+[1]-  Done                       "$scripts/$script" > "${script%.sh}.log"
+[3]+  Done                       "$scripts/$script" > "${script%.sh}.log"
+$ for pid in "${all_pids[@]}"; do
+>     if kill -0 "$pid" 2>/dev/null; then
+>         printf 'PID %s is still running.\n' "$pid" >&2
+>         exit 1
+>     fi
+> done
+$ printf '\nAll three processes have stopped. Timestamp logs follow.\n'
 
 All three processes have stopped. Timestamp logs follow.
-process1.sh 2026-11-23T18:33:16Z
-process1.sh 2026-11-23T18:33:21Z
-process2.sh 2026-11-23T18:33:16Z
-process2.sh 2026-11-23T18:33:21Z
-process3.sh 2026-11-23T18:33:16Z
-process3.sh 2026-11-23T18:33:21Z
+$ cat -- process{1..3}.log
+process1.sh 2026-11-25T08:45:56Z
+process1.sh 2026-11-25T08:46:01Z
+process2.sh 2026-11-25T08:45:56Z
+process2.sh 2026-11-25T08:46:01Z
+process3.sh 2026-11-25T08:45:56Z
+process3.sh 2026-11-25T08:46:01Z
+$ history -w "$TASK9_HISTORY"
+$ exit
+exit
 
---- 09 Project generator ---
+--- 09_project_generator ---
+$ set -euo pipefail
+$ printf 'MentorDemo\n6\n' | BASH_XTRACEFD=9 bash -x "$TASK9_SCRIPTS/project_generator.sh" 9>> "$TASK9_TRACES/09_project_generator.txt"
 Enter a project name: Enter the number of required directories (at least 4):
 Generated project structure
 .
@@ -300,8 +609,27 @@ Generated project structure
 ./tests
 ./tests/test_main.py
 Successfully created project MentorDemo with 6 subdirectories.
+$ if printf '\n' | BASH_XTRACEFD=9 bash -x "$TASK9_SCRIPTS/project_generator.sh" 9>> "$TASK9_TRACES/09_project_generator.txt"; then exit 1; fi
+Enter a project name: Enter a nonempty project name without slashes or control characters.
+$ if printf 'MentorDemo\n4\n' | BASH_XTRACEFD=9 bash -x "$TASK9_SCRIPTS/project_generator.sh" 9>> "$TASK9_TRACES/09_project_generator.txt"; then exit 1; fi
+Enter a project name: A path named MentorDemo already exists.
+$ if printf 'TooSmall\n3\n' | BASH_XTRACEFD=9 bash -x "$TASK9_SCRIPTS/project_generator.sh" 9>> "$TASK9_TRACES/09_project_generator.txt"; then exit 1; fi
+Enter a project name: Enter the number of required directories (at least 4): Enter a whole number of at least 4 for src, tests, docs and config.
+$ (cd -- MentorDemo && python3 -B -m unittest discover -s tests)
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
 
---- 10 File information checker ---
+OK
+$ history -w "$TASK9_HISTORY"
+$ exit
+exit
+
+--- 10_file_checker ---
+$ set -euo pipefail
+$ mkdir -p -- CheckerLab/.hidden_directory
+$ printf 'Hidden sample\n' > CheckerLab/.hidden_file
+$ printf 'SecurityLab/private.txt\n' | BASH_XTRACEFD=9 bash -x "$TASK9_SCRIPTS/file_checker.sh" 9>> "$TASK9_TRACES/10_file_checker.txt"
 Enter a file or directory path:
 Type: regular file
 Filename: private.txt
@@ -312,29 +640,42 @@ Lines: 1
 Readable: yes
 Writable: yes
 Executable: no
+$ printf 'CheckerLab\n' | BASH_XTRACEFD=9 bash -x "$TASK9_SCRIPTS/file_checker.sh" 9>> "$TASK9_TRACES/10_file_checker.txt"
 Enter a file or directory path:
 Type: directory
 Immediate entries, including hidden entries
-Files: 4
-Subdirectories: 3
-Recursive files: 7
-Recursive subdirectories: 9
+Files: 1
+Subdirectories: 1
+Recursive files: 1
+Recursive subdirectories: 1
 Readable: yes
 Writable: yes
 Executable: yes
+$ if printf 'missing-path\n' | BASH_XTRACEFD=9 bash -x "$TASK9_SCRIPTS/file_checker.sh" 9>> "$TASK9_TRACES/10_file_checker.txt"; then exit 1; fi
+Enter a file or directory path: The path does not exist: missing-path
+$ history -w "$TASK9_HISTORY"
+$ exit
+exit
 
---- 11 File organizer ---
-Created 25 sample downloads in <project>/Linux_commands/demo/Downloads
-Enter a file or directory path:
-Type: directory
-Immediate entries, including hidden entries
-Files: 25
-Subdirectories: 0
-Recursive files: 25
-Recursive subdirectories: 0
-Readable: yes
-Writable: yes
-Executable: yes
+--- 11_file_organizer ---
+$ set -euo pipefail
+$ mkdir -- Downloads
+$ cd -- Downloads
+$ touch -- 'Project brief.pdf' handbook.PDF agenda.txt draft.md meeting.txt \
+>     cover.jpg diagram.png banner.JPG logo.svg team.jpeg \
+>     interview.mp3 theme.MP3 narration.wav \
+>     demo.mp4 presentation.MP4 walkthrough.mov \
+>     files.zip export.tar.gz submission.ZIP \
+>     prepare.sh backup.SH helper.py \
+>     format.bin LICENSE .incoming
+$ printf 'Created %s sample downloads in %s\n' "$(find . -maxdepth 1 -type f -printf '.' | wc -c)" "$PWD"
+Created 25 sample downloads in <demo>/Downloads
+$ ls -A -- .
+ .incoming	      agenda.txt   cover.jpg	 draft.md	 format.bin     interview.mp3   narration.wav	   submission.ZIP   walkthrough.mov
+ LICENSE	      backup.SH	   demo.mp4	 export.tar.gz	 handbook.PDF   logo.svg        prepare.sh	   team.jpeg
+'Project brief.pdf'   banner.JPG   diagram.png	 files.zip	 helper.py      meeting.txt     presentation.MP4   theme.MP3
+$ cd -- ..
+$ BASH_XTRACEFD=9 bash -x "$TASK9_SCRIPTS/organizer.sh" 9>> "$TASK9_TRACES/11_file_organizer.txt" Downloads
 File organization report
 
 Documents  5
@@ -346,5 +687,33 @@ Scripts    3
 Others     3
 
 Total files moved: 25
-
-All 11 assignments completed in <project>/Linux_commands/demo
+$ find Downloads -type f -print | LC_ALL=C sort
+Downloads/Archives/export.tar.gz
+Downloads/Archives/files.zip
+Downloads/Archives/submission.ZIP
+Downloads/Audio/interview.mp3
+Downloads/Audio/narration.wav
+Downloads/Audio/theme.MP3
+Downloads/Documents/Project brief.pdf
+Downloads/Documents/agenda.txt
+Downloads/Documents/draft.md
+Downloads/Documents/handbook.PDF
+Downloads/Documents/meeting.txt
+Downloads/Images/banner.JPG
+Downloads/Images/cover.jpg
+Downloads/Images/diagram.png
+Downloads/Images/logo.svg
+Downloads/Images/team.jpeg
+Downloads/Others/.incoming
+Downloads/Others/LICENSE
+Downloads/Others/format.bin
+Downloads/Scripts/backup.SH
+Downloads/Scripts/helper.py
+Downloads/Scripts/prepare.sh
+Downloads/Videos/demo.mp4
+Downloads/Videos/presentation.MP4
+Downloads/Videos/walkthrough.mov
+Downloads/organization_report.txt
+$ history -w "$TASK9_HISTORY"
+$ exit
+exit

@@ -1,0 +1,48 @@
+#1795596356
+set -euo pipefail
+#1795596356
+mkdir -- SecurityLab
+#1795596356
+cd -- SecurityLab
+#1795596356
+printf '%s\n' 'Public company notice' > public.txt
+#1795596356
+printf '%s\n' 'Private payroll notes' > private.txt
+#1795596356
+printf '#!/usr/bin/env bash\nprintf "SecurityLab script ran\\n"\n' > script.sh
+#1795596356
+chmod 644 -- public.txt
+#1795596356
+chmod 600 -- private.txt
+#1795596356
+chmod 755 -- script.sh
+#1795596356
+printf 'Numeric modes in the long listing\n'
+#1795596356
+ls -l -- public.txt private.txt script.sh
+#1795596356
+chmod u=rw,go= -- private.txt
+#1795596356
+printf '\nPrivate file after symbolic chmod\n'
+#1795596356
+stat -c '%a %A %n' -- private.txt
+#1795596356
+ln -s -- script.sh script_link
+#1795596356
+ln -- public.txt public_backup
+#1795596356
+printf '\nInodes and link information\n'
+#1795596356
+ls -li -- public.txt public_backup script.sh script_link
+#1795596356
+stat -c '%n inode=%i hard_links=%h type=%F' -- public.txt public_backup script.sh script_link
+#1795596356
+printf '\nSymbolic link target\n'
+#1795596356
+readlink -- script_link
+#1795596356
+stat -L -c 'Dereferenced script_link inode=%i' -- script_link
+#1795596356
+./script_link
+#1795596356
+history -w "$TASK9_HISTORY"

@@ -1,0 +1,20 @@
+#1795596363
+set -euo pipefail
+#1795596363
+mkdir -- Downloads
+#1795596363
+cd -- Downloads
+#1795596363
+touch -- 'Project brief.pdf' handbook.PDF agenda.txt draft.md meeting.txt     cover.jpg diagram.png banner.JPG logo.svg team.jpeg     interview.mp3 theme.MP3 narration.wav     demo.mp4 presentation.MP4 walkthrough.mov     files.zip export.tar.gz submission.ZIP     prepare.sh backup.SH helper.py     format.bin LICENSE .incoming
+#1795596363
+printf 'Created %s sample downloads in %s\n' "$(find . -maxdepth 1 -type f -printf '.' | wc -c)" "$PWD"
+#1795596363
+ls -A -- .
+#1795596363
+cd -- ..
+#1795596363
+BASH_XTRACEFD=9 bash -x "$TASK9_SCRIPTS/organizer.sh" 9>> "$TASK9_TRACES/11_file_organizer.txt" Downloads
+#1795596363
+find Downloads -type f -print | LC_ALL=C sort
+#1795596363
+history -w "$TASK9_HISTORY"

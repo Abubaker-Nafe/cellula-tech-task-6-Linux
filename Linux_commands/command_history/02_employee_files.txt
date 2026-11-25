@@ -1,0 +1,40 @@
+#1795596355
+set -euo pipefail
+#1795596355
+cd -- Company
+#1795596355
+for path in employee{1..5}.txt manager.txt HR/employee{1,2}.txt Engineering/employee3.txt Marketing/employee4.txt; do
+    if [[ -e $path || -L $path ]]; then
+        printf 'Employee output already exists at %s\n' "$path" >&2
+        exit 1
+    fi
+done
+#1795596355
+touch -- employee{1..5}.txt
+#1795596355
+while IFS='|' read -r file employee department; do
+    printf 'Name: %s\nDepartment: %s\n' "$employee" "$department" > "$file"
+done <<'EMPLOYEES'
+employee1.txt|Amina Saleh|HR
+employee2.txt|Omar Nasser|HR
+employee3.txt|Layla Hassan|Engineering
+employee4.txt|Karim Ali|Marketing
+employee5.txt|Maya Khalil|Management
+EMPLOYEES
+
+#1795596355
+cp -v -- employee1.txt employee2.txt HR/
+#1795596355
+mv -v -- employee3.txt Engineering/
+#1795596355
+mv -v -- employee4.txt Marketing/
+#1795596355
+mv -v -- employee5.txt manager.txt
+#1795596355
+rm -v -- HR/employee2.txt
+#1795596355
+printf '\nFinal employee files\n'
+#1795596355
+find . -type f \( -name 'employee*.txt' -o -name manager.txt \) -print | LC_ALL=C sort
+#1795596355
+history -w "$TASK9_HISTORY"

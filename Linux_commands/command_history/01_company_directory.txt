@@ -1,0 +1,24 @@
+#1795596355
+set -euo pipefail
+#1795596355
+mkdir -- Company
+#1795596355
+cd -- Company
+#1795596355
+mkdir -p -- HR/{Recruitment,Payroll} Engineering/{Development,Testing} Marketing/{SocialMedia,Campaigns}
+#1795596355
+touch -- company_info.txt
+#1795596355
+printf 'Company directory tree\n'
+#1795596355
+find . -print | LC_ALL=C sort
+#1795596355
+printf '\nCurrent working directory\n'
+#1795596355
+pwd
+#1795596355
+printf '\nAll entries, including hidden entries\n'
+#1795596355
+ls -la
+#1795596355
+history -w "$TASK9_HISTORY"

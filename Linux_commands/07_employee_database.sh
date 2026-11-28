@@ -36,14 +36,17 @@ tail -n +2 -- employees.csv | cut -d, -f2 > names.txt
     head -n 1 -- employees.csv
     tail -n +2 -- employees.csv | LC_ALL=C sort -t, -k2,2 -k1,1n
 } > sorted_employees.csv
-printf 'Employees sorted alphabetically by name\n'
+echo 'Employees sorted alphabetically by name'
 cat -- sorted_employees.csv
 
-printf '\nUnique departments\n'
+echo
+echo 'Unique departments'
 tail -n +2 -- employees.csv | cut -d, -f3 | LC_ALL=C sort -u
-printf '\nEmployees per department\n'
+echo
+echo 'Employees per department'
 tail -n +2 -- employees.csv | cut -d, -f3 | LC_ALL=C sort | uniq -c
 
 awk -F, 'NR == 1 || $4 + 0 > 10000' employees.csv > high_salary.csv
-printf '\nEmployees earning more than 10000\n'
+echo
+echo 'Employees earning more than 10000'
 cat -- high_salary.csv

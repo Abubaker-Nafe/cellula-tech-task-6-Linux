@@ -2,7 +2,11 @@
 set -euo pipefail
 
 printf 'Enter a file or directory path: '
-IFS= read -r path || { printf '\nA path is required.\n' >&2; exit 1; }
+if ! IFS= read -r path; then
+    echo >&2
+    echo 'A path is required.' >&2
+    exit 1
+fi
 if [[ -z $path || ! -e $path ]]; then
     printf 'The path does not exist: %s\n' "$path" >&2
     exit 1
@@ -11,7 +15,7 @@ if [[ $path != /* ]]; then
     path=./$path
 fi
 
-printf '\n'
+echo
 if [[ -f $path ]]; then
     filename=${path##*/}
     extension='(none)'
@@ -23,27 +27,49 @@ if [[ -f $path ]]; then
     if [[ -r $path ]] && lines=$(wc -l < "$path"); then
         printf 'Lines: %s\n' "$lines"
     else
-        printf 'Lines: unavailable\n'
+        echo 'Lines: unavailable'
     fi
 elif [[ -d $path ]]; then
-    printf 'Type: directory\n'
+    echo 'Type: directory'
     if [[ -r $path && -x $path ]]; then
-        printf 'Immediate entries, including hidden entries\n'
+        echo 'Immediate entries, including hidden entries'
         find -H "$path" -mindepth 1 -maxdepth 1 -printf '%y\n' |
-            awk '$1 == "f" {files++} $1 == "d" {dirs++} END {printf "Files: %d\nSubdirectories: %d\n", files, dirs}'
-        if totals=$(find -H "$path" -mindepth 1 -printf '%y\n' |
-            awk '$1 == "f" {files++} $1 == "d" {dirs++} END {printf "Recursive files: %d\nRecursive subdirectories: %d", files, dirs}'); then
+            awk '
+                $1 == "f" { files++ }
+                $1 == "d" { dirs++ }
+                END { printf "Files: %d\nSubdirectories: %d\n", files, dirs }
+            '
+        if totals=$(
+            find -H "$path" -mindepth 1 -printf '%y\n' |
+                awk '
+                    $1 == "f" { files++ }
+                    $1 == "d" { dirs++ }
+                    END { printf "Recursive files: %d\nRecursive subdirectories: %d", files, dirs }
+                '
+        ); then
             printf '%s\n' "$totals"
         else
-            printf 'Recursive counts: unavailable\n'
+            echo 'Recursive counts: unavailable'
         fi
     else
-        printf 'Directory counts: unavailable\n'
+        echo 'Directory counts: unavailable'
     fi
 else
-    printf 'Type: other filesystem entry\n'
+    echo 'Type: other filesystem entry'
 fi
 
-if [[ -r $path ]]; then printf 'Readable: yes\n'; else printf 'Readable: no\n'; fi
-if [[ -w $path ]]; then printf 'Writable: yes\n'; else printf 'Writable: no\n'; fi
-if [[ -x $path ]]; then printf 'Executable: yes\n'; else printf 'Executable: no\n'; fi
+if [[ -r $path ]]; then
+    echo 'Readable: yes'
+else
+    echo 'Readable: no'
+fi
+if [[ -w $path ]]; then
+    echo 'Writable: yes'
+else
+    echo 'Writable: no'
+fi
+if [[ -x $path ]]; then
+    echo 'Executable: yes'
+else
+    echo 'Executable: no'
+fi

@@ -2,10 +2,14 @@
 set -euo pipefail
 
 printf 'Enter a project name: '
-IFS= read -r project || { printf '\nA project name is required.\n' >&2; exit 1; }
+if ! IFS= read -r project; then
+    echo >&2
+    echo 'A project name is required.' >&2
+    exit 1
+fi
 if [[ ! $project =~ [^[:space:]] || $project == */* ||
       $project == . || $project == .. || $project =~ [[:cntrl:]] ]]; then
-    printf 'Enter a nonempty project name without slashes or control characters.\n' >&2
+    echo 'Enter a nonempty project name without slashes or control characters.' >&2
     exit 1
 fi
 if [[ -e $project || -L $project ]]; then
@@ -14,10 +18,15 @@ if [[ -e $project || -L $project ]]; then
 fi
 
 printf 'Enter the number of required directories (at least 4): '
-IFS= read -r directory_count || { printf '\nA directory count is required.\n' >&2; exit 1; }
+if ! IFS= read -r directory_count; then
+    echo >&2
+    echo 'A directory count is required.' >&2
+    exit 1
+fi
+# Strip leading zeros and reject values outside Bash's integer range.
 if [[ ! $directory_count =~ ^0*([1-9][0-9]*)$ ]] ||
    ! count=$(printf '%d' "${BASH_REMATCH[1]}" 2>/dev/null) || (( count < 4 )); then
-    printf 'Enter a whole number of at least 4 for src, tests, docs and config.\n' >&2
+    echo 'Enter a whole number of at least 4 for src, tests, docs and config.' >&2
     exit 1
 fi
 
@@ -48,6 +57,7 @@ PYTHON
 printf '# %s\n\nRun `python3 src/main.py` from the project root.\n\nRun tests with `python3 -m unittest discover -s tests`.\n' "$project" > "$project/docs/README.md"
 printf '[project]\ndebug = false\n' > "$project/config/settings.conf"
 
-printf '\nGenerated project structure\n'
+echo
+echo 'Generated project structure'
 (cd -- "$project" && find . -print | LC_ALL=C sort)
 printf 'Successfully created project %s with %d subdirectories.\n' "$project" "$count"

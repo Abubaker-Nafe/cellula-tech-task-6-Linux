@@ -6,9 +6,11 @@ cd -- Company
 mkdir -p -- HR/{Recruitment,Payroll} Engineering/{Development,Testing} Marketing/{SocialMedia,Campaigns}
 touch -- company_info.txt
 
-printf 'Company directory tree\n'
+echo 'Company directory tree'
 find . -print | LC_ALL=C sort
-printf '\nCurrent working directory\n'
+echo
+echo 'Current working directory'
 pwd
-printf '\nAll entries, including hidden entries\n'
+echo
+echo 'All entries, including hidden entries'
 ls -la

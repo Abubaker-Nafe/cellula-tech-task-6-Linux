@@ -26,5 +26,6 @@ mv -v -- employee4.txt Marketing/
 mv -v -- employee5.txt manager.txt
 rm -v -- HR/employee2.txt
 
-printf '\nFinal employee files\n'
+echo
+echo 'Final employee files'
 find . -type f \( -name 'employee*.txt' -o -name manager.txt \) -print | LC_ALL=C sort

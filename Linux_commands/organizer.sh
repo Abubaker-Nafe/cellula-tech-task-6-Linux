@@ -50,10 +50,10 @@ for source in ./*; do
     esac
 
     destination=$category/$filename
-    copy=0
+    duplicate_number=0
     while [[ -e $destination || -L $destination ]]; do
-        copy=$((copy + 1))
-        destination="$category/$stem ($copy)$suffix"
+        duplicate_number=$((duplicate_number + 1))
+        destination="$category/$stem ($duplicate_number)$suffix"
     done
     mv -nT -- "$source" "$destination"
     if [[ -e $source || -L $source ]]; then
@@ -67,7 +67,8 @@ done
 temporary_report=$(mktemp .organization_report.XXXXXX)
 trap 'rm -f -- "$temporary_report"' EXIT
 {
-    printf 'File organization report\n\n'
+    echo 'File organization report'
+    echo
     for category in "${categories[@]}"; do
         printf '%-10s %d\n' "$category" "${counts[$category]:-0}"
     done

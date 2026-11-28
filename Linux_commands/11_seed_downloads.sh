@@ -10,4 +10,5 @@ touch -- 'Project brief.pdf' handbook.PDF agenda.txt draft.md meeting.txt \
     files.zip export.tar.gz submission.ZIP \
     prepare.sh backup.SH helper.py \
     format.bin LICENSE .incoming
-printf 'Created %s sample downloads in %s\n' "$(find . -maxdepth 1 -type f -printf '.' | wc -c)" "$PWD"
+file_count=$(find . -maxdepth 1 -type f -printf '.' | wc -c)
+printf 'Created %s sample downloads in %s\n' "$file_count" "$PWD"

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-scripts=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 mkdir -- ProcessLab
 cd -- ProcessLab
 
@@ -20,30 +20,33 @@ trap 'exit 143' TERM
 all_pids=()
 : > processes.txt
 for script in process{1..3}.sh; do
-    "$scripts/$script" > "${script%.sh}.log" &
+    "$script_dir/$script" > "${script%.sh}.log" &
     pid=$!
     running[$script]=$pid
     all_pids+=("$pid")
     printf '%s %s\n' "$script" "$pid" >> processes.txt
 done
 
-printf 'Background scripts and recorded PIDs\n'
+echo 'Background scripts and recorded PIDs'
 cat -- processes.txt
-printf '\nProcess status and resource use (RSS in KiB)\n'
+echo
+echo 'Process status and resource use (RSS in KiB)'
 pid_list=$(IFS=,; printf '%s' "${all_pids[*]}")
 ps -p "$pid_list" -o pid,ppid,stat,%cpu,%mem,rss,etime,args
 sleep 6
 
-printf '\nTerminating process2.sh (PID %s)\n' "${running[process2.sh]}"
-kill -TERM "${running[process2.sh]}"
-wait "${running[process2.sh]}"
+process2_pid=${running[process2.sh]}
+printf '\nTerminating process2.sh (PID %s)\n' "$process2_pid"
+kill -TERM "$process2_pid"
+wait "$process2_pid"
 unset 'running[process2.sh]'
-if kill -0 "${all_pids[1]}" 2>/dev/null; then
-    printf 'process2.sh is still running.\n' >&2
+if kill -0 "$process2_pid" 2>/dev/null; then
+    echo 'process2.sh is still running.' >&2
     exit 1
 fi
 
-printf '\nVerifying that process1.sh and process3.sh are still running\n'
+echo
+echo 'Verifying that process1.sh and process3.sh are still running'
 kill -0 "${running[process1.sh]}" "${running[process3.sh]}"
 ps -p "${running[process1.sh]},${running[process3.sh]}" -o pid,stat,%cpu,%mem,rss,args
 
@@ -58,5 +61,6 @@ for pid in "${all_pids[@]}"; do
         exit 1
     fi
 done
-printf '\nAll three processes have stopped. Timestamp logs follow.\n'
+echo
+echo 'All three processes have stopped. Timestamp logs follow.'
 cat -- process{1..3}.log

@@ -58,15 +58,19 @@ March 25 - Payroll balanced the quarter-end payment totals.
 March 29 - Department leads approved the quarterly operations report.
 MARCH
 
-printf 'Complete January report\n'
+echo 'Complete January report'
 cat -- january.txt
-printf '\nFirst five February lines\n'
+echo
+echo 'First five February lines'
 head -n 5 -- february.txt
-printf '\nLast seven March lines\n'
+echo
+echo 'Last seven March lines'
 tail -n 7 -- march.txt
-printf '\nLine, word and character counts\n'
+echo
+echo 'Line, word and character counts'
 wc -l -w -m -- january.txt february.txt march.txt
 
 cat -- january.txt february.txt march.txt > quarterly_report.txt
-printf '\nComplete quarterly report\n'
+echo
+echo 'Complete quarterly report'
 cat -- quarterly_report.txt
